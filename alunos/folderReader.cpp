@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+
+#include <typeinfo>
 using namespace std;
 
 void explore(char *dir_name) {
@@ -35,8 +37,17 @@ void explore(char *dir_name) {
 	//3 close
 	closedir(dir);
 }
+
+
 int main() {
 
-	explore((char*)"./alunos"); 
+    string a;
+    std::cin >> a;
+    char ar[a.size()];
+    for(int i = 0 ; i < a.size(); i++){
+        ar[i] = (char) a[i];
+    }
+
+	explore(ar); 
 	return 0;
 }
