@@ -6,11 +6,13 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "estruturaAlunos.cpp" //Arquivo onde estão as estruturas Alunos, Aluno, Disciplina
 
 using namespace std;
 
-//funcoes
+//funcoes prototipos
 void readFile(string path);
+void cadastraHistorico(string cell);
 
 void openDirectory(char * dir_name){
      DIR *dir; //pointer to open directory
@@ -43,23 +45,23 @@ void openDirectory(char * dir_name){
 }
 
 void readFile(string path){
+    Alunos alunos;
     fstream myFile;
 	myFile.open(path.c_str());
 
 	while(myFile.good()){
 		string cell;
 		std::getline(myFile, cell, '\n');
-		cout << cell << endl;
+		alunos.cadastraHistorico(cell); // passa cada linha do arquivo para adicionar no banco de notas
 	}
 }
 
 
 int main() {
- string diretorio = "";
- cout << "digite o diretorio que contem os historicos dos alunos" << endl;
- cin >> diretorio;
- //"C:/Users/Debora/Documents/entradaDados";
- openDirectory( (char*)diretorio.c_str());
- return 0;
+    /*string diretorio = "";
+    cout << "digite o diretorio que contem os historicos dos alunos" << endl;
+    cin >> diretorio;*/
+    openDirectory("C:/Users/Debora/Documents/PLP/projetoGit/AdaSimulacao/historicosDosAlunos" );
+    return 0;
 }
 
