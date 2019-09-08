@@ -75,13 +75,9 @@ struct Disciplina {
    std::map<double,double> indReprovPorNota;
    std::map<double,double> indAprovados;
 
-   std::string exibeDesempPass(int nPer) {
-      std::string retorno = "Desempenho de ";
-      std::ostringstream stringn;
-      stringn << nPer;
-      std::string varAsStringn = stringn.str();
-      retorno += varAsStringn;
-      retorno += " periodo(s) atras:\n";
+   //Formato do retorno: Map<Periodo,Vector(PrimEstag,SegEst,TercEst,PorcAprov,PorcReprovPorNota,PorReprovFalta)
+   std::map<double, vector<double> > exibeDesempPass(int nPer) {
+      std::map<double, vector<double> > retornoR;
 
       // Criador do Iterator + apontando pro início do mapa
 	   std::map<double, std::vector<double> >::iterator it = estagios.begin();
@@ -98,66 +94,31 @@ struct Disciplina {
 		// Accessing VALUE from element.
 		std::vector<double> medias = it->second;
 
-      //Medias
-      retorno += "Periodo: ";
-      std::ostringstream stringp;
-      stringp << periodo;
-      std::string varAsStringp = stringp.str();
-      retorno += varAsStringp;
-      retorno += "\n";
-      retorno += "Media - Estágio 1: ";
-      std::ostringstream string0;
-      string0 << medias.at(0);
-      std::string varAsString = string0.str();
-      retorno += varAsString;
-      retorno += "\n";
-      retorno += "Media - Estágio 2: ";
-      std::ostringstream string1;
-      string1 << medias.at(1);
-      std::string varAsString1 = string1.str();
-      retorno += varAsString1;
-      retorno += "\n";
-      retorno += "Media - Estágio 3: ";
-      std::ostringstream string2;
-      string2 << medias.at(2);
-      std::string varAsString2 = string2.str();
-      retorno += varAsString2;
-      retorno += "\n";
+      //Vetor de informações
+      std:vector<double> acresc;
+
+      //Pondo as medias do primeiro,segundo e terceiro estagio
+      acresc.push_back(medias.at(0));
+      acresc.push_back(medias.at(1));
+      acresc.push_back(medias.at(2));
 
       //Porcentagem de reprovacao e aprovacao
-      retorno += "Porcentagens de Desempenho:\n";
-      retorno += "Reprovados por falta: ";
-      std::ostringstream stringfalta;
-      stringfalta << indReprovPorFalta[periodo];
-      std::string varAsStringfalta = stringfalta.str();
-      retorno += varAsStringfalta;
-      retorno += "\n";
+      acresc.push_back(indAprovados[periodo]);
+      acresc.push_back(indReprovPorNota[periodo]);
+      acresc.push_back(indReprovPorFalta[periodo]);
 
-      retorno += "Reprovados por falta: ";
-      std::ostringstream stringreprovNota;
-      stringreprovNota << indReprovPorNota[periodo];
-      std::string varAsStringreprovnota = stringreprovNota.str();
-      retorno += varAsStringreprovnota;
-      retorno += "\n";
-
-      retorno += "Reprovados por falta: ";
-      std::ostringstream stringAprov;
-      stringAprov << indAprovados[periodo];
-      std::string varAsStringAprov = stringAprov.str();
-      retorno += varAsStringAprov;
-      retorno += "\n";
-
-		// Increment the Iterator to point to next entry
-      retorno += "\n";
+      retornoR.insert(std::pair<double,std::vector<double> >(periodo,acresc));
+      acresc.clear();
 		it++;
 	   }
-      return retorno;
+
+      return retornoR;
    };
 
 
-
-   std::string exibeMediasPassadas() {
-      std::string retorno = "Medias Passadas:\n";
+   //Formato do retorno: Map<Periodo,Vector(PrimEstag,SegEst,TercEst)
+   std::map<double,std::vector<double> > exibeMediasPassadas() {
+      std::map<double,std::vector<double> > retornoR;
 
       // Criador do Iterator + apontando pro início do mapa
 	   std::map<double, std::vector<double> >::iterator it = estagios.begin();
@@ -168,40 +129,21 @@ struct Disciplina {
 		// Accessing VALUE from element.
 		std::vector<double> medias = it->second;
 
-      retorno += "Periodo: ";
-      std::ostringstream stringp;
-      stringp << periodo;
-      std::string varAsStringp = stringp.str();
-      retorno += varAsStringp;
-      retorno += "\n";
-      retorno += "Media - Estágio 1: ";
-      std::ostringstream string0;
-      string0 << medias.at(0);
-      std::string varAsString = string0.str();
-      retorno += varAsString;
-      retorno += "\n";
-      retorno += "Media - Estágio 2: ";
-      std::ostringstream string1;
-      string1 << medias.at(1);
-      std::string varAsString1 = string1.str();
-      retorno += varAsString1;
-      retorno += "\n";
-      retorno += "Media - Estágio 3: ";
-      std::ostringstream string2;
-      string2 << medias.at(2);
-      std::string varAsString2 = string2.str();
-      retorno += varAsString2;
-      retorno += "\n";
-		// Increment the Iterator to point to next entry
+      std::vector<double> mediasEst;
+      mediasEst.push_back(medias.at(0));
+      mediasEst.push_back(medias.at(1));
+      mediasEst.push_back(medias.at(2));
+
+      retornoR.insert(std::pair<double,std::vector<double> >(periodo,mediasEst));
+
 		it++;
 	   }
 
-      retorno += "\n";
-      return retorno;
+      return retornoR;
    }
 
-   std::string exibeIndices() {
-      std::string retorno = "Indices medios de aprovacao e reprovacao: \n";
+   //Formato do retorno: Vector(PorcMediaAprov,PorcMediaReprovNota,PorcMediaReprovFalt)
+   std::vector<double> exibeIndices() {
       int numPer = indAprovados.size();
       double somaAprov = 0;
       double somaReprovFalta = 0;
@@ -210,12 +152,11 @@ struct Disciplina {
       double mediaReprovFalta;
       double mediaReprovNota;
 
-
       std::map<double, double>::iterator it = indAprovados.begin();
 
       //Calculo media de aprovados
       while (it != indAprovados.end()){
-      // Accessing KEY from element
+      // Accessing chave from element
 		double periodo = it->first;
       somaAprov += indAprovados[periodo];
       somaReprovFalta += indReprovPorFalta[periodo];
@@ -227,27 +168,12 @@ struct Disciplina {
       mediaReprovFalta = (somaReprovFalta/numPer);
       mediaReprovNota = (somaReprovNota/numPer);
 
-      retorno += "Media de reprovados por falta:  \n";
-      std::ostringstream stringfalta;
-      stringfalta << mediaReprovFalta;
-      std::string varAsStringfalta = stringfalta.str();
-      retorno += varAsStringfalta;
-      retorno += "%\n";
+      // Pôr porcentagem de aprovados,reprovados por falta e reprovados por média nessa ordem no vetor de retorno
+      std::vector<double> retorno;
 
-      retorno += "Media de reprovados por nota:  \n";
-      std::ostringstream stringreprovNota;
-      stringreprovNota << mediaReprovNota;
-      std::string varAsStringreprovnota = stringreprovNota.str();
-      retorno += varAsStringreprovnota;
-      retorno += "%\n";
-
-      retorno += "Media de Aprovados: \n";
-      std::ostringstream stringAprov;
-      stringAprov << mediaAprov;
-      std::string varAsStringAprov = stringAprov.str();
-      retorno += varAsStringAprov;
-      retorno += "%\n";
-      retorno += "\n";
+      retorno.push_back(mediaAprov);
+      retorno.push_back(mediaReprovNota);
+      retorno.push_back(mediaReprovFalta);
 
       return retorno;
    }
@@ -292,9 +218,11 @@ int main() {
    PLP.indAprovados.insert(std::pair<double,double>(periodo3,30));
 
    //Testes de cada método
-   std::cout << PLP.exibeDesempPass(2);
-   std::cout << PLP.exibeMediasPassadas();
-   std::cout << PLP.exibeIndices();
+   //std::cout << PLP.exibeDesempPass(2);
+   //std::cout << PLP.exibeMediasPassadas();
+   std::cout << PLP.exibeIndices().at(0);
+   std::cout << PLP.exibeIndices().at(1);
+   std::cout << PLP.exibeIndices().at(2);
 
    return 0;
 }
