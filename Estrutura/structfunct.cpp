@@ -13,6 +13,7 @@ void cadastraDisciplina(string disciplina, double nota);
 void cadastraMatricula(string mat);
 const vector<string> split( string frase, const char& c);
 
+
 struct Aluno {
     string matricula;
     double CRA;
@@ -156,7 +157,7 @@ vector<double> exibeIndices(Disciplina d) {
     map<double,double> indReprovPorFalta = d.indReprovPorFalta;
     map<double,double> indReprovPorNota = d.indReprovPorFalta;
     map<double,double> indAprovados = d.indAprovados;
-    
+
     int numPer = indAprovados.size();
     double somaAprov = 0;
     double somaReprovFalta = 0;
@@ -202,7 +203,7 @@ vector<double> calculaMediaEstagios(Disciplina d) {
     double mediaSegEst;
     double mediaTercEst;
 
-    //Agora, será calculada a média de cada estágio e depois comparada pra saber qual o estágio crítico  
+    //Agora, será calculada a média de cada estágio e depois comparada pra saber qual o estágio crítico
     map<double, vector<double> >::iterator it = estagios.begin();
 
     //Calculo media de aprovados
@@ -293,7 +294,7 @@ vector<string> pontosCriticos(Disciplina d) {
 //Formato do retorno: Vector, contendo as matriculas dos alunos dentro do intervalo
 vector<string> agruparAlunos(Alunos a, double iniInter, double fimInter){
   map<string, Aluno> historico = a.historicos;
-  
+
   map<string, Aluno>::iterator it = historico.begin();
 
   vector<string> listaAlunos;
@@ -311,6 +312,8 @@ vector<string> agruparAlunos(Alunos a, double iniInter, double fimInter){
   return listaAlunos;
 }
 
+
+
 vector<string> desempPreRequisitos(vector<string> disc, Alunos a){
     string saida;
 
@@ -322,32 +325,29 @@ vector<string> desempPreRequisitos(vector<string> disc, Alunos a){
         saida += "---- " + disc[i] + "----\n";
         int acimaDeSete;
         int entreCincoeSete;
-        
-            /* while(it != alunos.end()){
+
+            while(it != alunos.end()){
                     Aluno aluno = it->second;
-                    map<string,vector<double>> historico = aluno.historico;
-                    vector<double> notas = aluno.historico.find(disc[i]);
-                    double media = calcMediaDiscAluno(notas);
+                    map<const string,vector<double>> historico = aluno.historico;
+                    vector<double> notas = historico[disc[i]];
+                    double media = notas[notas.size() - 1];
+                    if(media >= 7.0){
+                        acimaDeSete++;
+                    }else{
+                        entreCincoeSete++;
+                    }
 
 
-                } */
+                }
 
 
     }
-    
-    
-    
+
+
+
 }
 
-double calcMediaDiscAluno(vector<double> notas){
-    double saida;
-    for (int i = 0; i < notas.size(); i++)
-    {
-        saida += notas[i];
-    }
 
-    return saida/(notas.size() - 1);
-}
 
 int main() {
    //Dados para Testes
