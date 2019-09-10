@@ -123,7 +123,7 @@ map<double, vector<double> > exibeDesempPass(int nPer, Disciplina d) {
       return retornoR;
 };
 
-    //Formato do retorno: Map<Periodo,Vector(PrimEstag,SegEst,TercEst)
+//Formato do retorno: Map<Periodo,Vector(PrimEstag,SegEst,TercEst)
 map<double,vector<double> > exibeMediasPassadas(Disciplina d) {
     map<double,vector<double> > estagios = d.estagios;
 
@@ -151,7 +151,7 @@ map<double,vector<double> > exibeMediasPassadas(Disciplina d) {
     return retornoR;
 };
 
- //Formato do retorno: Vector(PorcMediaAprov,PorcMediaReprovNota,PorcMediaReprovFalt)
+//Formato do retorno: Vector(PorcMediaAprov,PorcMediaReprovNota,PorcMediaReprovFalt)
 vector<double> exibeIndices(Disciplina d) {
     map<double,double> indReprovPorFalta = d.indReprovPorFalta;
     map<double,double> indReprovPorNota = d.indReprovPorFalta;
@@ -290,6 +290,65 @@ vector<string> pontosCriticos(Disciplina d) {
     return retorno;
 }
 
+//Formato do retorno: Vector, contendo as matriculas dos alunos dentro do intervalo
+vector<string> agruparAlunos(Alunos a, double iniInter, double fimInter){
+  map<string, Aluno> historico = a.historicos;
+  
+  map<string, Aluno>::iterator it = historico.begin();
+
+  vector<string> listaAlunos;
+
+  while(it != historico.end()){
+      double cra = it->second.CRA;
+
+      if((cra >= iniInter) && (cra <= fimInter)){
+          listaAlunos.push_back(it->first);
+      }
+
+        it++;
+  }
+
+  return listaAlunos;
+}
+
+vector<string> desempPreRequisitos(vector<string> disc, Alunos a){
+    string saida;
+
+    map<string, Aluno> alunos = a.historicos;
+    map<string, Aluno>::iterator it = alunos.begin();
+
+    for (int i = 0; i < disc.size(); i++)
+    {
+        saida += "---- " + disc[i] + "----\n";
+        int acimaDeSete;
+        int entreCincoeSete;
+        
+            /* while(it != alunos.end()){
+                    Aluno aluno = it->second;
+                    map<string,vector<double>> historico = aluno.historico;
+                    vector<double> notas = aluno.historico.find(disc[i]);
+                    double media = calcMediaDiscAluno(notas);
+
+
+                } */
+
+
+    }
+    
+    
+    
+}
+
+double calcMediaDiscAluno(vector<double> notas){
+    double saida;
+    for (int i = 0; i < notas.size(); i++)
+    {
+        saida += notas[i];
+    }
+
+    return saida/(notas.size() - 1);
+}
+
 int main() {
    //Dados para Testes
    Disciplina PLP;
@@ -334,9 +393,9 @@ int main() {
   //cout << PLP.exibeIndices().at(1);
    //cout << PLP.exibeIndices().at(2);
   // for (int i = 0; i < pontosCriticos(PLP).size(); i++) {
-    //   cout << pontosCriticos(PLP).at(i);
+    //   cout << pontosCriticos(PLP).a]t(i);
     //   cout << "\n";
    //}
 
-  // return 0;
+  return 0;
 }
