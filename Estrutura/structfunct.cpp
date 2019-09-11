@@ -17,7 +17,7 @@ struct Aluno
 {
     string matricula;
     double CRA;
-    map<const string, vector<double>> historico;
+    map<const string, vector<double> > historico;
 
     void cadastraDisciplina(string disciplina, double nota)
     {
@@ -84,25 +84,24 @@ struct Alunos
 
 struct Disciplina
 {
-    map<double, vector<double>> estagios;
+    map<double, vector<double> > estagios;
     map<double, double> indReprovPorFalta;
     map<double, double> indReprovPorNota;
     map<double, double> indAprovados;
 };
 
 //Formato do retorno: Map<Periodo,<medEstagio1,medEstagio2,medEstag3,aprov,reprovNota,reprovFalta>
-map<double, vector<double>> exibeDesempPass(int nPer, Disciplina d)
-{
-    map<double, vector<double>> estagios = d.estagios;
+void exibeDesempPass(int nPer, Disciplina d){
+    map<double, vector<double> > estagios = d.estagios;
 
     map<double, double> indReprovPorFalta = d.indReprovPorFalta;
     map<double, double> indReprovPorNota = d.indReprovPorFalta;
     map<double, double> indAprovados = d.indAprovados;
 
-    map<double, vector<double>> retornoR;
+    map<double, vector<double> > retornoR;
 
     // Criador do Iterator + apontando pro início do mapa
-    map<double, vector<double>>::iterator it = estagios.begin();
+    map<double, vector<double> >::iterator it = estagios.begin();
 
     int ini = estagios.size() - nPer;
 
@@ -131,23 +130,38 @@ map<double, vector<double>> exibeDesempPass(int nPer, Disciplina d)
         acresc.push_back(indReprovPorNota[periodo]);
         acresc.push_back(indReprovPorFalta[periodo]);
 
-        retornoR.insert(pair<double, vector<double>>(periodo, acresc));
+        retornoR.insert(pair<double, vector<double> >(periodo, acresc));
         acresc.clear();
         it++;
     }
 
-    return retornoR;
+    cout << "Desempenho de " << nPer << " periodos atrás:\n";
+
+    map<double,vector<double> >::iterator ite = retornoR.begin();
+
+    while (ite != retornoR.end()) {
+        double period = ite->first;
+        vector<double> infos = ite->second;
+        cout << "Periodo: " << period << "\n";
+        cout << "Media no primeiro estagio: " << infos.at(0) << "\n";
+        cout << "Media no segundo estagio: " << infos.at(1) << "\n";
+        cout << "Media no terceiro estagio: " << infos.at(2) << "\n";
+        cout << "Porcent de aprovacao por nota: " << infos.at(3) << "%\n" ;
+        cout << "Porcent de reprovacao por nota: " << infos.at(4) << "%\n";
+        cout << "Porcent de reprovacao por falta: " << infos.at(5) << "%\n";
+        cout << "\n";
+        ite++;
+    }
 };
 
 //Formato do retorno: Map<Periodo,Vector(PrimEstag,SegEst,TercEst)
-map<double, vector<double>> exibeMediasPassadas(Disciplina d)
-{
-    map<double, vector<double>> estagios = d.estagios;
+void exibeMediasPassadas(Disciplina d){
+    map<double, vector<double> > estagios = d.estagios;
 
-    map<double, vector<double>> retornoR;
+    map<double, vector<double> > retornoR;
 
     // Criador do Iterator + apontando pro início do mapa
-    map<double, vector<double>>::iterator it = estagios.begin();
+    map<double, vector<double> >::iterator it = estagios.begin();
 
     while (it != estagios.end())
     {
@@ -161,19 +175,32 @@ map<double, vector<double>> exibeMediasPassadas(Disciplina d)
         mediasEst.push_back(medias.at(1));
         mediasEst.push_back(medias.at(2));
 
-        retornoR.insert(pair<double, vector<double>>(periodo, mediasEst));
+        retornoR.insert(pair<double, vector<double> >(periodo, mediasEst));
 
         it++;
     }
 
-    return retornoR;
+    cout << "As medias passadas de cada periodo registrado dessa disciplina são: ";
+    
+    map<double,vector<double> >::iterator ite = retornoR.begin();
+
+    while (ite != retornoR.end()) {
+        double period = ite->first;
+        vector<double> infos = ite->second;
+        cout << "Periodo: " << period << "\n";
+        cout << "Media no primeiro estagio: " << infos.at(0) << "\n";
+        cout << "Media no segundo estagio: " << infos.at(1) << "\n";
+        cout << "Media no terceiro estagio: " << infos.at(2) << "\n";
+        cout << "\n";
+        ite++;
+    }
 };
 
 //Formato do retorno: Vector(PorcMediaAprov,PorcMediaReprovNota,PorcMediaReprovFalt)
-vector<double> exibeIndices(Disciplina d)
+void exibeIndices(Disciplina d)
 {
     map<double, double> indReprovPorFalta = d.indReprovPorFalta;
-    map<double, double> indReprovPorNota = d.indReprovPorFalta;
+    map<double, double> indReprovPorNota = d.indReprovPorNota;
     map<double, double> indAprovados = d.indAprovados;
 
     int numPer = indAprovados.size();
@@ -208,14 +235,19 @@ vector<double> exibeIndices(Disciplina d)
     retorno.push_back(mediaReprovNota);
     retorno.push_back(mediaReprovFalta);
 
-    return retorno;
+    cout << "Porcentagens de aprovação e reprovação da disciplina durante todos os periodos registrados: \n";
+    cout << "Porcentagem de aprovacao: " << retorno.at(0) << " %\n";
+    cout << "Porcentagem de reprovacao por nota: " << retorno.at(1) << " %\n";
+    cout << "Porcentagem de reprovacao por falta: " << retorno.at(2) << " %\n";
+    cout << "\n";
+
 };
 
 //Auxiliar
 vector<double> calculaMediaEstagios(Disciplina d)
 {
     vector<double> retorno;
-    map<double, vector<double>> estagios = d.estagios;
+    map<double, vector<double> > estagios = d.estagios;
     double somaPrimEst = 0;
     double somaSegEst = 0;
     double somaTercEst = 0;
@@ -224,7 +256,7 @@ vector<double> calculaMediaEstagios(Disciplina d)
     double mediaTercEst;
 
     //Agora, será calculada a média de cada estágio e depois comparada pra saber qual o estágio crítico
-    map<double, vector<double>>::iterator it = estagios.begin();
+    map<double, vector<double> >::iterator it = estagios.begin();
 
     //Calculo media de aprovados
     while (it != estagios.end())
@@ -248,8 +280,8 @@ vector<double> calculaMediaEstagios(Disciplina d)
 
     return retorno;
 };
-
-vector<string> pontosCriticos(Disciplina d)
+// Pontos criticos
+void pontosCriticos(Disciplina d)
 {
     vector<string> retorno;
 
@@ -319,7 +351,11 @@ vector<string> pontosCriticos(Disciplina d)
         retorno.push_back("Todos os estágios possuem a mesma dificuldade");
     }
 
-    return retorno;
+    cout << "Pontos Críticos da disciplina e informações importantes: \n";
+
+    for (int i = 0; i < retorno.size(); i++) {
+        cout << retorno.at(i) << "\n";
+    }
 }
 
 //Imprime uma lista de alunos com CRA dentro do intervalo passsado
@@ -360,7 +396,7 @@ void desempPreRequisitos(vector<string> disc, Alunos a)
         while (it != alunos.end())
         {
             Aluno aluno = it->second;
-            map<const string, vector<double>> historico = aluno.historico;
+            map<const string, vector<double> > historico = aluno.historico;
             vector<double> notas = historico[disc[i]];
             double media = notas[notas.size() - 1];
             if (media >= 7.0)
@@ -395,7 +431,7 @@ void desempDiscDesejaveis(vector<string> disc, Alunos a)
         while (it != alunos.end())
         {
             Aluno aluno = it->second;
-            map<const string, vector<double>> historico = aluno.historico;
+            map<const string, vector<double> > historico = aluno.historico;
             if (historico.find(disc[i]) != historico.end())
             {
                 vector<double> notas = historico[disc[i]];
@@ -435,8 +471,8 @@ void repetentesComuns(int n, Alunos a)
     {
         int reprovacoes;
         Aluno aluno = it->second;
-        map<const string, vector<double>> historico = aluno.historico;
-        map<const string, vector<double>>::iterator itDisc = historico.begin();
+        map<const string, vector<double> > historico = aluno.historico;
+        map<const string, vector<double> >::iterator itDisc = historico.begin();
         while (itDisc != historico.end())
         {
             vector<double> notas = itDisc->second;
@@ -467,7 +503,7 @@ void repetentesDisc(Alunos a, string disciplina)
     while (it != alunos.end())
     {
         Aluno aluno = it->second;
-        map<const string, vector<double>> historico = aluno.historico;
+        map<const string, vector<double> > historico = aluno.historico;
         if (historico.find(disciplina) != historico.end()){
             cout << "- " << aluno.matricula << "\n";
         }
@@ -486,7 +522,7 @@ int main()
     estagios1.push_back(5);
     estagios1.push_back(8.3);
     estagios1.push_back(10);
-    PLP.estagios.insert(pair<double, vector<double>>(periodo1, estagios1));
+    PLP.estagios.insert(pair<double, vector<double> >(periodo1, estagios1));
     PLP.indReprovPorFalta.insert(pair<double, double>(periodo1, 40.7));
     PLP.indReprovPorNota.insert(pair<double, double>(periodo1, 20.3));
     PLP.indAprovados.insert(pair<double, double>(periodo1, 39));
@@ -497,7 +533,7 @@ int main()
     estagios2.push_back(3);
     estagios2.push_back(5);
     estagios2.push_back(1.5);
-    PLP.estagios.insert(std::pair<double, vector<double>>(periodo2, estagios2));
+    PLP.estagios.insert(std::pair<double, vector<double> >(periodo2, estagios2));
     PLP.indReprovPorFalta.insert(pair<double, double>(periodo2, 29.5));
     PLP.indReprovPorNota.insert(pair<double, double>(periodo2, 0));
     PLP.indAprovados.insert(pair<double, double>(periodo2, 70));
@@ -508,21 +544,14 @@ int main()
     estagios3.push_back(3);
     estagios3.push_back(5);
     estagios3.push_back(1.5);
-    PLP.estagios.insert(pair<double, vector<double>>(periodo3, estagios3));
+    PLP.estagios.insert(pair<double, vector<double> >(periodo3, estagios3));
     PLP.indReprovPorFalta.insert(pair<double, double>(periodo3, 65));
     PLP.indReprovPorNota.insert(pair<double, double>(periodo3, 5));
     PLP.indAprovados.insert(pair<double, double>(periodo3, 30));
 
-    //Testes de cada método
-    //std::cout << exibeDesempPass(2,PLP)[18.2].at(0);
-    //std::cout << PLP.exibeMediasPassadas();
-    //cout << PLP.exibeIndices().at(0);
-    //cout << PLP.exibeIndices().at(1);
-    //cout << PLP.exibeIndices().at(2);
-    // for (int i = 0; i < pontosCriticos(PLP).size(); i++) {
-    //   cout << pontosCriticos(PLP).a]t(i);
-    //   cout << "\n";
-    //}
+    exibeDesempPass(2,PLP);
+    exibeIndices(PLP);
+    pontosCriticos(PLP);
 
     return 0;
 }
