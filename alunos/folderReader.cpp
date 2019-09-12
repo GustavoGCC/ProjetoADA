@@ -6,16 +6,16 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "estruturaAlunos.cpp" // eh o arquivo que contem as estruturas e esta em dev
+#include "estruturaAlunos.cpp" //arquivo onde estao as estruturas
+#include "prototipos.h"
 
 using namespace std;
 
 //funcoes
 void readFile(string path);
-void cadastraHistorico(string cell);
+int openDirectory(const char * dir_name);
 
-void openDirectory(const char * dir_name){
-    cout << "akjsjha" ;
+int openDirectory(const char * dir_name){
      DIR *dir; //pointer to open directory
      struct dirent *entry; //stuff inside the direct
      struct stat info; //information about each entry
@@ -23,8 +23,8 @@ void openDirectory(const char * dir_name){
      //1 open
      dir = opendir(dir_name);
      if (!dir) {
-      cout << "Directory was not found";
-      return;
+      cout << "\n\t\t\t\t  diretorio nao encontrado\n";
+      return 0;
     }
 
      //2read
@@ -41,8 +41,10 @@ void openDirectory(const char * dir_name){
           }
      }
 
+     cout << "\t\t\t\t  dados carregados com sucesso!";
      //3close
      closedir(dir);
+     return 1;
 }
 
 void readFile(const string path){
