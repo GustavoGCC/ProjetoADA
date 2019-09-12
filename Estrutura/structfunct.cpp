@@ -161,7 +161,6 @@ void exibeDesempPass(int nPer, Disciplina d){
     }
 };
 
-//Formato do retorno: Map<Periodo,Vector(PrimEstag,SegEst,TercEst)
 void exibeMediasPassadas(Disciplina d){
     map<double, vector<double> > estagios = d.estagios;
 
@@ -203,7 +202,6 @@ void exibeMediasPassadas(Disciplina d){
     }
 };
 
-//Formato do retorno: Vector(PorcMediaAprov,PorcMediaReprovNota,PorcMediaReprovFalt)
 void exibeIndices(Disciplina d)
 {
     map<double, double> indReprovPorFalta = d.indReprovPorFalta;
@@ -464,7 +462,7 @@ void desempDiscDesejaveis(vector<string> disc, Alunos a)
         }
 
         cout << acimaDeSete << "alunos pagaram com média acima de 7,0\n"
-             << entreCincoeSete << "alunos pagaram com média abaixo de 7,0 (Finalistas)\n";
+             << entreCincoeSete << "alunos pagaram com média abaixo de 7,0 (Finalistas) ou reprovaram\n";
 
         cout << naoPagaram << "alunos não pagaram esta disciplina!\n\n";
     }
@@ -508,8 +506,7 @@ void repetentesComuns(int n, Alunos a) {
     }
 }
 
-void repetentesDisc(Alunos a, string disciplina)
-{
+void repetentesDisc(Alunos a, string disciplina){
     map<string, Aluno> alunos = a.historicos;
     map<string, Aluno>::iterator it = alunos.begin();
 
@@ -526,9 +523,7 @@ void repetentesDisc(Alunos a, string disciplina)
     }
 }
 
-//Comentando testando por erros
-
-/**int main()
+int main()
 {
     //Dados para Testes
     Disciplina PLP;
@@ -571,4 +566,4 @@ void repetentesDisc(Alunos a, string disciplina)
     pontosCriticos(PLP);
 
     return 0;
-}*/
+}
