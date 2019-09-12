@@ -6,15 +6,16 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "estruturaAlunos.cpp" //Arquivo onde estão as estruturas Alunos, Aluno, Disciplina
+#include "estruturaAlunos.cpp" // eh o arquivo que contem as estruturas e esta em dev
 
 using namespace std;
 
-//funcoes prototipos
+//funcoes
 void readFile(string path);
 void cadastraHistorico(string cell);
 
-void openDirectory(char * dir_name){
+void openDirectory(const char * dir_name){
+    cout << "akjsjha" ;
      DIR *dir; //pointer to open directory
      struct dirent *entry; //stuff inside the direct
      struct stat info; //information about each entry
@@ -44,7 +45,7 @@ void openDirectory(char * dir_name){
      closedir(dir);
 }
 
-void readFile(string path){
+void readFile(const string path){
     Alunos alunos;
     fstream myFile;
 	myFile.open(path.c_str());
@@ -52,16 +53,19 @@ void readFile(string path){
 	while(myFile.good()){
 		string cell;
 		std::getline(myFile, cell, '\n');
-		alunos.cadastraHistorico(cell); // passa cada linha do arquivo para adicionar no banco de notas
+		alunos.cadastraHistorico(cell);
 	}
 }
 
 
-int main() {
-    /*string diretorio = "";
-    cout << "digite o diretorio que contem os historicos dos alunos" << endl;
-    cin >> diretorio;*/
-    openDirectory("C:/Users/Debora/Documents/PLP/projetoGit/AdaSimulacao/historicosDosAlunos" );
-    return 0;
-}
+/*int main() {
+     string diretorio = "";
+     cout << "digite o diretorio que contem os historicos dos alunos" << endl;
+     cin >> diretorio;
+     cout << diretorio;
+     openDirectory(diretorio.c_str());
+     return 0;
+    // "C:/Users/Debora/Documents/PLP/projetoGit/AdaSimulacao/historicosDosAlunos"
+}*/
+
 
