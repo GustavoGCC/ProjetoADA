@@ -84,6 +84,7 @@ struct Alunos
 
 struct Disciplina
 {
+    string nome;
     map<double, vector<double> > estagios;
     map<double, double> indReprovPorFalta;
     map<double, double> indReprovPorNota;
