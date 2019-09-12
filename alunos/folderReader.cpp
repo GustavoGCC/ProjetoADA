@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "estruturaAlunos.cpp" //arquivo onde estao as estruturas
+#include "structfunct.cpp" //arquivo onde estao as estruturas
 #include "prototipos.h"
 
 using namespace std;
