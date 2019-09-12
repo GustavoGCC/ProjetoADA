@@ -92,7 +92,14 @@ struct Disciplina
 
 //Formato do retorno: Map<Periodo,<medEstagio1,medEstagio2,medEstag3,aprov,reprovNota,reprovFalta>
 void exibeDesempPass(int nPer, Disciplina d){
+
     map<double, vector<double> > estagios = d.estagios;
+
+    if (nPer <= 0 || nPer > estagios.size()) {
+        cout << "Numero de periodos invalido\n";
+        return;
+    }
+
 
     map<double, double> indReprovPorFalta = d.indReprovPorFalta;
     map<double, double> indReprovPorNota = d.indReprovPorFalta;
@@ -361,6 +368,10 @@ void pontosCriticos(Disciplina d)
 //Imprime uma lista de alunos com CRA dentro do intervalo passsado
 void agruparAlunos(Alunos a, double iniInter, double fimInter)
 {
+    if (iniInter > fimInter) {
+        cout << "Intervalo invalido\n";
+    }
+
     map<string, Aluno> historico = a.historicos;
 
     map<string, Aluno>::iterator it = historico.begin();
@@ -460,8 +471,12 @@ void desempDiscDesejaveis(vector<string> disc, Alunos a)
 }
 
 //Imprime uma lista de alunos que possuem ao menos n reprovações
-void repetentesComuns(int n, Alunos a)
-{
+void repetentesComuns(int n, Alunos a) {
+    if (n < 0) {
+        cout << "Numero de reprovacoes invalido\n";
+        return;
+    }
+
     map<string, Aluno> alunos = a.historicos;
     map<string, Aluno>::iterator it = alunos.begin();
 
