@@ -511,6 +511,8 @@ void repetentesDisc(Alunos a, string disciplina)
     }
 }
 
+//Comentando testando por erros
+
 /**int main()
 {
     //Dados para Testes
