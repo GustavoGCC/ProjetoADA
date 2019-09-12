@@ -511,7 +511,7 @@ void repetentesDisc(Alunos a, string disciplina)
     }
 }
 
-int main()
+/**int main()
 {
     //Dados para Testes
     Disciplina PLP;
@@ -554,4 +554,4 @@ int main()
     pontosCriticos(PLP);
 
     return 0;
-}
+}*/
