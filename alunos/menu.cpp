@@ -101,7 +101,6 @@ void alunos(){
 }
 
 void exibirFuncoesAlunos(){
-    Alunos alunos = retornaAlunos();
     system("clear||cls");
     cout << "\n\n" << centralizar("funcionalidades")
     << "\n\n" << centralizar("1.agrupar alunos de acordo com o intervalo de CRA passado como parametro")
