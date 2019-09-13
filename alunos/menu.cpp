@@ -125,7 +125,7 @@ void exibirFuncoesAlunos(){
 	    cout << "\n\n\t\t\t\t   fim > ";
 	    cin >> fimInter;
     	cout << centralizar("os seguintes alunos tem CRA dentro do intervalo passado ") << "\n";
-	    agruparAlunos(retornaAlunos(),iniInter,fimInter);
+	    agruparAlunos(returnAlunos(),iniInter,fimInter);
     }
     else if(opcao == "2"){
         cout << centralizar("digite, por linha, os nomes das disciplinas que sao pre requisitos. E pressione Enter");
@@ -141,7 +141,7 @@ void exibirFuncoesAlunos(){
 		}
 	}
 
-	desempPreRequisitos(preR,retornaAlunos());	
+	desempPreRequisitos(preR,returnAlunos());	
     }
     else if(opcao == "3"){
          cout << centralizar("digite, por linha, os nomes das disciplinas que sao desejaveis, e pressione Enter");
@@ -156,7 +156,7 @@ void exibirFuncoesAlunos(){
 		       desej.push_back(nomeDisc);
 		    }
 	    }
-        desempDiscDesejaveis(desej,retornaAlunos());	
+        desempDiscDesejaveis(desej,returnAlunos());	
     }
     else if(opcao == "4"){
         int n;
@@ -164,11 +164,11 @@ void exibirFuncoesAlunos(){
 	    cout << "\n\n\t\t\t\t   reprovacoes(n) > ";
 	    cin >> n;
 	    cout << centralizar("alunos com n+ reprovacoes: ") << "\n";
-	    repetentesComuns(n,retornaAlunos());
+	    repetentesComuns(n,returnAlunos());
     }
     else if(opcao == "5"){
         cout << centralizar("os seguintes alunos ja reprovaram esta disciplina: ") << "\n";
-	   // repetentesDisc(retornaAlunos(),disc.nome);
+	   // repetentesDisc(returnAlunos(),disc.nome);
     }
     else if(opcao == "6"){alunos();}
 }
