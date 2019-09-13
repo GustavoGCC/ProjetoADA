@@ -101,9 +101,10 @@ void alunos(){
 }
 
 void exibirFuncoesAlunos(){
+    Alunos alunos = retornaAlunos();
     system("clear||cls");
     cout << "\n\n" << centralizar("funcionalidades")
-    << "\n\n" << centralizar("1.agrupar alunos de acordo com o CRA passado como parametro")
+    << "\n\n" << centralizar("1.agrupar alunos de acordo com o intervalo de CRA passado como parametro")
     << "\n" << centralizar("2.exibir o desempenho dos alunos nos pre requisitos")
     << "\n" << centralizar("3.exibir o desempenho dos alunos nas disciplinas desejaveis")
     << "\n" << centralizar("4.exibir alunos que possuem ao menos n reprovacoes no curriculo")
@@ -115,11 +116,61 @@ void exibirFuncoesAlunos(){
         cout << "\t\t\t\t   opcao > ";
         cin >> opcao;
     }while(opcao != "1" && opcao != "2" && opcao != "3" && opcao != "4" && opcao != "5" && opcao != "6");
-    if(opcao == "1"){}
-    else if(opcao == "2"){}
-    else if(opcao == "3"){}
-    else if(opcao == "4"){}
-    else if(opcao == "5"){}
+    if(opcao == "1"){
+        double iniInter;
+	    double fimInter;
+	    cout << centralizar("digite o inicio do intervalo do CRA");
+	    cout << "\n\n\t\t\t\t   inicio > ";
+	    cin >> iniInter;
+	    cout << centralizar("digite o fim do intervalo do CRA");
+	    cout << "\n\n\t\t\t\t   fim > ";
+	    cin >> fimInter;
+    	cout << centralizar("os seguintes alunos tem CRA dentro do intervalo passado ") << "\n";
+	    agruparAlunos(retornaAlunos(),iniInter,fimInter);
+    }
+    else if(opcao == "2"){
+        cout << centralizar("digite, por linha, os nomes das disciplinas que sao pre requisitos. E pressione Enter");
+	    vector<string> preR;
+	    string preReq = ".";
+	    while (preReq != "") {
+		    getline(cin, preReq);
+		    if (preReq == "") {
+		    	break;
+		    }
+		else {
+		    preR.push_back(preReq);
+		}
+	}
+
+	desempPreRequisitos(preR,retornaAlunos());	
+    }
+    else if(opcao == "3"){
+         cout << centralizar("digite, por linha, os nomes das disciplinas que sao desejaveis, e pressione Enter");
+	    vector<string> desej;
+	    string nomeDisc = ".";
+	    while (nomeDisc != "") {
+		    getline(cin, nomeDisc);
+		    if (nomeDisc == "") {
+		    	break;
+		    }
+		    else {
+		       desej.push_back(nomeDisc);
+		    }
+	    }
+        desempDiscDesejaveis(desej,retornaAlunos());	
+    }
+    else if(opcao == "4"){
+        int n;
+	    cout << centralizar("digite o numero de reprovacoes minimas");
+	    cout << "\n\n\t\t\t\t   reprovacoes(n) > ";
+	    cin >> n;
+	    cout << centralizar("alunos com n+ reprovacoes: ") << "\n";
+	    repetentesComuns(n,retornaAlunos());
+    }
+    else if(opcao == "5"){
+        cout << centralizar("os seguintes alunos ja reprovaram esta disciplina: ") << "\n";
+	   // repetentesDisc(retornaAlunos(),disc.nome);
+    }
     else if(opcao == "6"){alunos();}
 }
 
@@ -154,10 +205,26 @@ void exibirFuncoesDisciplina(){
         cout << "\t\t\t\t   opcao > ";
         cin >> opcao;
     }while(opcao != "1" && opcao != "2" && opcao != "3" && opcao != "4" && opcao != "5");
-    if(opcao == "1"){}
-    else if(opcao == "2"){}
-    else if(opcao == "3"){}
-    else if(opcao == "4"){}
+    if(opcao == "1"){
+        int n;
+        cout << centralizar("Digite o numero de periodos atras voce quer exibir o perfil geral");
+        cout << "\n\n\t\t\t\t   periodos > ";
+	    cin >> n;
+	    cout << centralizar("Desempenho passado da disciplina: ") << "\n";
+	  //  exibeDesempPass(n,disc);
+    }
+    else if(opcao == "2"){
+        cout << centralizar("pontos criticos da disciplina e informacoes importantes: ") << "\n";
+	 //   pontosCriticos(disc);
+    }
+    else if(opcao == "3"){
+         cout << centralizar("as medias passadas de cada periodo registrado dessa disciplina sao: ") << "\n";
+	  //  exibeMediasPassadas(disc);
+    }
+    else if(opcao == "4"){
+        cout << centralizar("porcentagens de aprovação e reprovação da disciplina durante todos os periodos registrados: ") << "\n";
+	  //  exibeindices(disc);
+    }
     else if(opcao == "5"){disciplina();}
 }
 

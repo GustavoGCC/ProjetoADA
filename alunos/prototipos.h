@@ -36,5 +36,6 @@ struct Disciplina{
 };
 void readFile(string path, Alunos alunos);
 
+Alunos retornaAlunos();
 
 #endif
