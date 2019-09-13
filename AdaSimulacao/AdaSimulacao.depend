@@ -1,0 +1,145 @@
+# depslib dependency file v1.0
+1567649154 source:c:\users\debora\documents\plp\projetogit\adasimulacao\create.cpp
+	<fstream>
+
+1568245657 source:c:\users\debora\documents\plp\projetogit\adasimulacao\main.cpp
+	<iostream>
+	<string>
+	<vector>
+
+1568360638 source:c:\users\debora\documents\plp\projetogit\adasimulacao\folderreader.cpp
+	<dirent.h>
+	<sys/stat.h>
+	<stdlib.h>
+	<iostream>
+	<string>
+	<fstream>
+	"prototipos.h"
+
+1568361217 source:c:\users\debora\documents\plp\projetogit\adasimulacao\estruturaalunos.cpp
+	<iostream>
+	<vector>
+	<string>
+	<map>
+	<sstream>
+	<stdlib.h>
+	<bits/stdc++.h>
+	"prototipos.h"
+	"prototiposEstrutura.h"
+
+1568335885 c:\users\debora\documents\plp\projetogit\adasimulacao\estruturaalunos.cpp
+	<iostream>
+	<vector>
+	<string>
+	<map>
+	<sstream>
+	<stdlib.h>
+
+1568360771 source:c:\users\debora\documents\plp\projetogit\adasimulacao\menu.cpp
+	<stdio.h>
+	<string>
+	<stdlib.h>
+	<iostream>
+	"prototipos.h"
+	"prototiposEstrutura.h"
+
+1568250662 c:\users\debora\documents\plp\projetogit\adasimulacao\folderreader.cpp
+	<dirent.h>
+	<sys/stat.h>
+	<string.h>
+	<stdio.h>
+	<iostream>
+	<string>
+	<fstream>
+	"estruturaAlunos.cpp"
+
+1568360658 c:\users\debora\documents\plp\projetogit\adasimulacao\prototipos.h
+	<vector>
+	<map>
+
+1568348041 c:\users\debora\documents\plp\projetogit\adasimulacao\prototiposestrutura.h
+
+1567649154 source:c:\users\debora\documents\plpgit\projetoada\adasimulacao\create.cpp
+	<fstream>
+
+1568361217 source:c:\users\debora\documents\plpgit\projetoada\adasimulacao\estruturaalunos.cpp
+	<iostream>
+	<vector>
+	<string>
+	<map>
+	<sstream>
+	<stdlib.h>
+	<bits/stdc++.h>
+	"prototipos.h"
+	"prototiposEstrutura.h"
+
+1568360658 c:\users\debora\documents\plpgit\projetoada\adasimulacao\prototipos.h
+	<vector>
+	<map>
+
+1568348041 c:\users\debora\documents\plpgit\projetoada\adasimulacao\prototiposestrutura.h
+
+1568360638 source:c:\users\debora\documents\plpgit\projetoada\adasimulacao\folderreader.cpp
+	<dirent.h>
+	<sys/stat.h>
+	<stdlib.h>
+	<iostream>
+	<string>
+	<fstream>
+	"prototipos.h"
+
+1568245657 source:c:\users\debora\documents\plpgit\projetoada\adasimulacao\main.cpp
+	<iostream>
+	<string>
+	<vector>
+
+1568362487 source:c:\users\debora\documents\plpgit\projetoada\adasimulacao\menu.cpp
+	<stdio.h>
+	<string>
+	<stdlib.h>
+	<iostream>
+	"prototipos.h"
+	"prototiposEstrutura.h"
+
+1567649154 source:c:\users\debora\documents\plp\projetogit\projetoada\adasimulacao\create.cpp
+	<fstream>
+
+1568387057 source:c:\users\debora\documents\plp\projetogit\projetoada\adasimulacao\estruturaalunos.cpp
+	<iostream>
+	<vector>
+	<string>
+	<map>
+	<sstream>
+	<stdlib.h>
+	<bits/stdc++.h>
+	"prototipos.h"
+	"prototiposEstrutura.h"
+
+1568395358 c:\users\debora\documents\plp\projetogit\projetoada\adasimulacao\prototipos.h
+	<vector>
+	<map>
+
+1568348041 c:\users\debora\documents\plp\projetogit\projetoada\adasimulacao\prototiposestrutura.h
+
+1568245657 source:c:\users\debora\documents\plp\projetogit\projetoada\adasimulacao\main.cpp
+	<iostream>
+	<string>
+	<vector>
+
+1568389590 source:c:\users\debora\documents\plp\projetogit\projetoada\adasimulacao\menu.cpp
+	<stdio.h>
+	<string>
+	<stdlib.h>
+	<iostream>
+	"prototipos.h"
+	"prototiposEstrutura.h"
+
+1568395268 source:c:\users\debora\documents\plp\projetogit\projetoada\adasimulacao\folderreader.cpp
+	<dirent.h>
+	<sys/stat.h>
+	<stdlib.h>
+	<iostream>
+	<string>
+	<fstream>
+	"prototipos.h"
+
