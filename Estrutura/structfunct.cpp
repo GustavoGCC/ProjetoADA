@@ -97,7 +97,7 @@ void exibeDesempPass(int nPer, Disciplina d){
     map<double, vector<double> > estagios = d.estagios;
 
     if (nPer <= 0 || nPer > estagios.size()) {
-        cout << "Numero de periodos invalido\n";
+        cout << "numero de periodos invalido\n";
         return;
     }
 
@@ -143,20 +143,18 @@ void exibeDesempPass(int nPer, Disciplina d){
         it++;
     }
 
-    cout << "Desempenho de " << nPer << " periodos atrás:\n";
-
     map<double,vector<double> >::iterator ite = retornoR.begin();
 
     while (ite != retornoR.end()) {
         double period = ite->first;
         vector<double> infos = ite->second;
-        cout << "Periodo: " << period << "\n";
-        cout << "Media no primeiro estagio: " << infos.at(0) << "\n";
-        cout << "Media no segundo estagio: " << infos.at(1) << "\n";
-        cout << "Media no terceiro estagio: " << infos.at(2) << "\n";
-        cout << "Porcent de aprovacao por nota: " << infos.at(3) << "%\n" ;
-        cout << "Porcent de reprovacao por nota: " << infos.at(4) << "%\n";
-        cout << "Porcent de reprovacao por falta: " << infos.at(5) << "%\n";
+        cout << "periodo: " << period << "\n";
+        cout << "media no primeiro estagio: " << infos.at(0) << "\n";
+        cout << "media no segundo estagio: " << infos.at(1) << "\n";
+        cout << "media no terceiro estagio: " << infos.at(2) << "\n";
+        cout << "porcent de aprovacao por nota: " << infos.at(3) << "%\n" ;
+        cout << "porcent de reprovacao por nota: " << infos.at(4) << "%\n";
+        cout << "porcent de reprovacao por falta: " << infos.at(5) << "%\n";
         cout << "\n";
         ite++;
     }
@@ -186,18 +184,16 @@ void exibeMediasPassadas(Disciplina d){
 
         it++;
     }
-
-    cout << "As medias passadas de cada periodo registrado dessa disciplina são: ";
     
     map<double,vector<double> >::iterator ite = retornoR.begin();
 
     while (ite != retornoR.end()) {
         double period = ite->first;
         vector<double> infos = ite->second;
-        cout << "Periodo: " << period << "\n";
-        cout << "Media no primeiro estagio: " << infos.at(0) << "\n";
-        cout << "Media no segundo estagio: " << infos.at(1) << "\n";
-        cout << "Media no terceiro estagio: " << infos.at(2) << "\n";
+        cout << "periodo: " << period << "\n";
+        cout << "media no primeiro estagio: " << infos.at(0) << "\n";
+        cout << "media no segundo estagio: " << infos.at(1) << "\n";
+        cout << "media no terceiro estagio: " << infos.at(2) << "\n";
         cout << "\n";
         ite++;
     }
@@ -241,10 +237,10 @@ void exibeIndices(Disciplina d)
     retorno.push_back(mediaReprovNota);
     retorno.push_back(mediaReprovFalta);
 
-    cout << "Porcentagens de aprovação e reprovação da disciplina durante todos os periodos registrados: \n";
-    cout << "Porcentagem de aprovacao: " << retorno.at(0) << " %\n";
-    cout << "Porcentagem de reprovacao por nota: " << retorno.at(1) << " %\n";
-    cout << "Porcentagem de reprovacao por falta: " << retorno.at(2) << " %\n";
+    cout << "porcentagens de aprovacao e reprovacao da disciplina durante todos os periodos registrados: \n";
+    cout << "porcentagem de aprovacao: " << retorno.at(0) << " %\n";
+    cout << "porcentagem de reprovacao por nota: " << retorno.at(1) << " %\n";
+    cout << "porcentagem de reprovacao por falta: " << retorno.at(2) << " %\n";
     cout << "\n";
 
 };
@@ -309,7 +305,7 @@ void pontosCriticos(Disciplina d)
 
     if (mediaReprovFalta >= 30)
     {
-        string caso1 = "Indice de reprovacao por falta alto: ";
+        string caso1 = "indice de reprovacao por falta alto: ";
         std::ostringstream stringfalta;
         stringfalta << mediaReprovFalta;
         std::string varAsStringfalta = stringfalta.str();
@@ -324,40 +320,38 @@ void pontosCriticos(Disciplina d)
 
     if (mediaEstagios.at(0) > mediaEstagios.at(1) && mediaEstagios.at(0) > mediaEstagios.at(2))
     {
-        retorno.push_back("Estagio critico: Estágio 1");
+        retorno.push_back("estagio critico: estagio 1");
     }
 
     else if (mediaEstagios.at(1) > mediaEstagios.at(0) && mediaEstagios.at(1) > mediaEstagios.at(2))
     {
-        retorno.push_back("Estagio critico: Estágio 2");
+        retorno.push_back("estagio critico: estagio 2");
     }
 
     else if (mediaEstagios.at(2) > mediaEstagios.at(1) && mediaEstagios.at(2) > mediaEstagios.at(0))
     {
-        retorno.push_back("Estagio critico: Estágio 1");
+        retorno.push_back("estagio critico: Estagio 1");
     }
 
     else if (mediaEstagios.at(0) == mediaEstagios.at(1) && mediaEstagios.at(0) > mediaEstagios.at(2))
     {
-        retorno.push_back("Estagios criticos: Estágio 1 e 2");
+        retorno.push_back("estagios criticos: estágios 1 e 2");
     }
 
     else if (mediaEstagios.at(0) == mediaEstagios.at(2) && mediaEstagios.at(0) > mediaEstagios.at(1))
     {
-        retorno.push_back("Estagios criticos: Estágio 1 e 3");
+        retorno.push_back("estagios criticos: estagios 1 e 3");
     }
 
     else if (mediaEstagios.at(1) == mediaEstagios.at(2) && mediaEstagios.at(1) > mediaEstagios.at(0))
     {
-        retorno.push_back("Estagios criticos: Estágio 2 e 3");
+        retorno.push_back("estagios criticos: estagios 2 e 3");
     }
 
     else if (mediaEstagios.at(1) == mediaEstagios.at(2) && mediaEstagios.at(1) > mediaEstagios.at(0))
     {
-        retorno.push_back("Todos os estágios possuem a mesma dificuldade");
+        retorno.push_back("todos os estagios possuem a mesma dificuldade");
     }
-
-    cout << "Pontos Críticos da disciplina e informações importantes: \n";
 
     for (int i = 0; i < retorno.size(); i++) {
         cout << retorno.at(i) << "\n";
@@ -368,14 +362,12 @@ void pontosCriticos(Disciplina d)
 void agruparAlunos(Alunos a, double iniInter, double fimInter)
 {
     if (iniInter > fimInter) {
-        cout << "Intervalo invalido\n";
+        cout << "intervalo invalido\n";
     }
 
     map<string, Aluno> historico = a.historicos;
 
     map<string, Aluno>::iterator it = historico.begin();
-
-    cout << "Os seguintes alunos tem CRA entre " << iniInter << " e " << fimInter << ":\n"; 
 
     while (it != historico.end())
     {
@@ -462,24 +454,24 @@ void desempDiscDesejaveis(vector<string> disc, Alunos a)
             it++;
         }
 
-        cout << acimaDeSete << "alunos pagaram com média acima de 7,0\n"
-             << entreCincoeSete << "alunos pagaram com média abaixo de 7,0 (Finalistas) ou reprovaram\n";
+        cout << acimaDeSete << "alunos pagaram com media acima de 7,0\n"
+             << entreCincoeSete << "alunos pagaram com media abaixo de 7,0 (finalistas) ou reprovaram\n";
 
-        cout << naoPagaram << "alunos não pagaram esta disciplina!\n\n";
+        cout << naoPagaram << "alunos nao pagaram esta disciplina!\n\n";
     }
 }
 
 //Imprime uma lista de alunos que possuem ao menos n reprovações
 void repetentesComuns(int n, Alunos a) {
     if (n < 0) {
-        cout << "Numero de reprovacoes invalido\n";
+        cout << "numero de reprovacoes invalido\n";
         return;
     }
 
     map<string, Aluno> alunos = a.historicos;
     map<string, Aluno>::iterator it = alunos.begin();
 
-    cout << "\nOs seguintes alunos possuem " << n << " ou mais reprovações no currículo:\n";
+    cout << "\nos seguintes alunos possuem " << n << " ou mais reprovações no curriculo:\n";
 
     while (it != alunos.end())
     {
@@ -511,7 +503,7 @@ void repetentesDisc(Alunos a, string disciplina){
     map<string, Aluno> alunos = a.historicos;
     map<string, Aluno>::iterator it = alunos.begin();
 
-    cout << "\nOs seguintes alunos já reprovaram esta disciplina:\n";
+    cout << "\nos seguintes alunos ja reprovaram esta disciplina:\n";
 
     while (it != alunos.end())
     {
