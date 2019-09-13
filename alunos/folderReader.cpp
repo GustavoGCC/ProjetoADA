@@ -1,19 +1,19 @@
 #include <dirent.h>
 #include <sys/stat.h>
-
-#include <string.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "structfunct.cpp" //arquivo onde estao as estruturas
+
 #include "prototipos.h"
+
 
 using namespace std;
 
 //funcoes
-void readFile(string path);
-int openDirectory(const char * dir_name);
+
+
+Alunos alunos; // variavel global alunos
 
 int openDirectory(const char * dir_name){
      DIR *dir; //pointer to open directory
@@ -26,14 +26,13 @@ int openDirectory(const char * dir_name){
       cout << "\n\t\t\t\t  diretorio nao encontrado\n";
       return 0;
     }
-
      //2read
      while ((entry = readdir(dir)) != NULL)
      {
           if (entry->d_name[0] != '.')
           {
            string path = string(dir_name) + '/' + string(entry->d_name);
-           readFile(path);
+           readFile(path, alunos);
            stat(path.c_str(), &info);
            if(S_ISDIR(info.st_mode)){
                 openDirectory((char*)path.c_str());
@@ -47,18 +46,75 @@ int openDirectory(const char * dir_name){
      return 1;
 }
 
-void readFile(const string path){
-    Alunos alunos;
+void readFile(const string path, Alunos a){
     fstream myFile;
 	myFile.open(path.c_str());
 
 	while(myFile.good()){
 		string cell;
 		std::getline(myFile, cell, '\n');
-		alunos.cadastraHistorico(cell);
+		a.cadastraHistorico(cell);
 	}
 }
 
+    void Aluno::cadastraDisciplina(string disciplina, double nota){
+        if (historico.count(disciplina) == 0)
+        {
+            historico[disciplina];
+            historico[disciplina].push_back(nota);
+        }
+        else
+        {
+            historico[disciplina].push_back(nota);
+        }
+    }
+
+    void Aluno::cadastraMatricula(string mat){
+        matricula = mat;
+    }
+
+
+void Alunos::cadastraHistorico(string linha){
+    vector<string> dadosAluno = split(linha, ',');
+    if (dadosAluno.size() == 2)
+    {
+        Aluno aluno;
+        historicos.insert(pair<string, Aluno>(dadosAluno[0], aluno));
+        historicos[dadosAluno[0]].cadastraMatricula(dadosAluno[0]);
+    }
+    else
+    {
+        char *pEnd;
+        double nota = strtod(dadosAluno[2].c_str(), &pEnd);
+        historicos[dadosAluno[0]].cadastraDisciplina(dadosAluno[1], nota);
+    }
+}
+
+    const vector<string> Alunos::split(string frase, const char &c){
+        string buff = "";
+        vector<string> saida;
+
+        for (int i = 0; i < frase.length(); i++)
+        {
+            if (frase[i] != c)
+                buff += frase[i];
+            else if (frase[i] == c && buff != "")
+            {
+                saida.push_back(buff);
+                buff = "";
+            }
+        }
+        if (buff != "")
+        {
+            saida.push_back(buff);
+        }
+        return saida;
+    }
+
+
+const Alunos returnAlunos(){
+    return alunos;
+}
 
 /*int main() {
      string diretorio = "";

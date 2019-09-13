@@ -4,92 +4,10 @@
 #include <map>
 #include <sstream>
 #include <stdlib.h>
+#include "prototipos.h"
+#include "prototiposEstrutura.h"
 
 using namespace std;
-
-//funcoes prototipos
-void cadastraHistorico(string linha);
-void cadastraDisciplina(string disciplina, double nota);
-void cadastraMatricula(string mat);
-const vector<string> split(string frase, const char &c);
-
-struct Aluno
-{
-    string matricula;
-    double CRA;
-    map<const string, vector<double> > historico;
-
-    void cadastraDisciplina(string disciplina, double nota)
-    {
-        if (historico.count(disciplina) == 0)
-        {
-            historico[disciplina];
-            historico[disciplina].push_back(nota);
-        }
-        else
-        {
-            historico[disciplina].push_back(nota);
-        }
-    }
-
-    void cadastraMatricula(string mat)
-    {
-        matricula = mat;
-    }
-};
-
-struct Alunos
-{
-    map<string, Aluno> historicos;
-
-    void cadastraHistorico(string linha)
-    {
-        vector<string> dadosAluno = split(linha, ',');
-        if (dadosAluno.size() == 2)
-        {
-            Aluno aluno;
-            historicos.insert(pair<string, Aluno>(dadosAluno[0], aluno));
-            historicos[dadosAluno[0]].cadastraMatricula(dadosAluno[0]);
-        }
-        else
-        {
-            char *pEnd;
-            double nota = strtod(dadosAluno[2].c_str(), &pEnd);
-            historicos[dadosAluno[0]].cadastraDisciplina(dadosAluno[1], nota);
-        }
-    }
-
-    const vector<string> split(string frase, const char &c)
-    {
-        string buff = "";
-        vector<string> saida;
-
-        for (int i = 0; i < frase.length(); i++)
-        {
-            if (frase[i] != c)
-                buff += frase[i];
-            else if (frase[i] == c && buff != "")
-            {
-                saida.push_back(buff);
-                buff = "";
-            }
-        }
-        if (buff != "")
-        {
-            saida.push_back(buff);
-        }
-        return saida;
-    }
-};
-
-struct Disciplina
-{
-    string nome;
-    map<double, vector<double> > estagios;
-    map<double, double> indReprovPorFalta;
-    map<double, double> indReprovPorNota;
-    map<double, double> indAprovados;
-};
 
 //Formato do retorno: Map<Periodo,<medEstagio1,medEstagio2,medEstag3,aprov,reprovNota,reprovFalta>
 void exibeDesempPass(int nPer, Disciplina d){
@@ -184,7 +102,7 @@ void exibeMediasPassadas(Disciplina d){
 
         it++;
     }
-    
+
     map<double,vector<double> >::iterator ite = retornoR.begin();
 
     while (ite != retornoR.end()) {
@@ -516,7 +434,7 @@ void repetentesDisc(Alunos a, string disciplina){
     }
 }
 
-int main()
+/*int main()
 {
     //Dados para Testes
     Disciplina PLP;
@@ -559,4 +477,4 @@ int main()
     pontosCriticos(PLP);
 
     return 0;
-}
+}*/
