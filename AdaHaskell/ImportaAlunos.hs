@@ -124,7 +124,7 @@ somaSizesListas (h:t) i = i + (List.length h) + (somaSizesListas t i)
 -- A diferenca entre os sizes do mapa geral e da soma dos sizes de cada lista eh o numero de reprovacoes
 checaAlunosNReprov :: Aluno -> Int -> Bool
 checaAlunosNReprov a n 
-        | ((somaSizesListas (pegaListaListaNotas a) 0) - (sizeNotas a) > n) = True
+        | ((somaSizesListas (pegaListaListaNotas a) 0) - (sizeNotas a) >= n) = True
         | otherwise = False
 
 -- Metodo chamado no menu
