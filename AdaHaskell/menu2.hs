@@ -52,7 +52,7 @@ paginaInicial disciplina alunos = do
  putStrLn("\t\t\t\t     1.menu\t\t2.info\n\n" ++ "\n" )
  putStr(centralizar "opcao > " )
  opcao <- getLine 
- verificaEntrada opcao [("1", menu disciplina alunos), ("2", informacao)]
+ verificaEntrada opcao [("1", menu disciplina alunos), ("2", informacao disciplina alunos)]
 
 verificaEntrada :: String -> [(String, (IO()))] -> IO()
 verificaEntrada opcao (x:xs) = verificaEntradaRecursivo opcao (x:xs) (x:xs)
@@ -76,8 +76,8 @@ menu disc dadosAlunos = do
  opcao <- getLine 
  verificaEntrada opcao [("1", alunos disc dadosAlunos), ("2", (disciplina disc dadosAlunos)), ("3", main)]
 
-informacao :: IO()
-informacao = do
+informacao :: Disc -> Alunos ->  IO()
+informacao disciplina alunos = do
  putStr "\ESC[2J"
  putStrLn("")
  putStrLn(centralizar "\t\tvenha conhecer seus alunos" ++ "\n")
@@ -88,7 +88,7 @@ informacao = do
  putStrLn(centralizar "\t\t1.voltar" ++ "\n")
  putStr(centralizar "opcao > " )
  opcao <- getLine 
- verificaEntrada opcao [("1", main)]
+ verificaEntrada opcao [("1", paginaInicial disciplina alunos)]
 
 alunos :: Disc -> Alunos -> IO()
 alunos disc dadosAlunos = do 
@@ -231,7 +231,11 @@ repetentesComuns disc dadosAlunos = do
 repetentesDisc :: Disc -> Alunos -> IO()
 repetentesDisc disc dadosAlunos = do
  let nomeDisciplina = (getNome disc)
- putStrLn((apontaAlunosRepetentes dadosAlunos nomeDisciplina))
+ let repetentes = (apontaAlunosRepetentes dadosAlunos nomeDisciplina)
+ if(repetentes == "") then do
+  putStrLn $ "nenhum aluno eh repetente"
+ else do
+  putStrLn(repetentes)
  putStr(centralizar "opcao > " )
  opcao <- getLine 
  verificaEntrada opcao [("1", funcaoAgruparAlunos disc dadosAlunos), ("2", desempPreRequisitos disc dadosAlunos ), ("3", desempDiscDesejaveis disc dadosAlunos), ("4", repetentesComuns disc dadosAlunos), ("5", repetentesDisc disc dadosAlunos), ("6", alunos disc dadosAlunos)]
