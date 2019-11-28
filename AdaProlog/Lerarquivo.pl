@@ -91,9 +91,51 @@ compara(R,N,T,Nome) :-
 R >= N, writeln(Nome),alunosComNRep(T,N);
 alunosComNRep(T,N).
 
+pegarUltimaApar(El,Lista,Posicao) :-
+length(Lista,R), R2 is R - 1, ultimaApr(El,Lista,R2,Posicao).
+
+ultimaApr(_,_,-1,-1).
+
+ultimaApr(El,Lista,I,Posicao) :-
+    nth0(I,Lista,X), X = El, Posicao is I + 0;
+    I2 is I - 1,ultimaApr(El,Lista,I2,Posicao).
+
+pegaDesempAluno(A,D,R) :-
+member(D,A), pegarUltimaApar(D,A,Ind), Ind2 is Ind + 1, nth0(Ind2,A,Nota), R is Nota;
+R is -1.
+
+imprimeLista([]) :- write('').
+imprimeLista([H|T]) :- writeln(H), imprimeLista(T).
+
+imprimirLista(L) :- length(L,0), writeln('Nenhum');
+                    imprimeLista(L).
+
+checaDesempDisc([],D,Ac,Ab,N) :-
+    write(D),writeln(':'),
+    writeln('Alunos que cursaram com media acima de 7:'),
+    imprimirLista(Ac),
+    writeln('Alunos que cursaram com media abaixo de 7:'),
+    imprimirLista(Ab),
+    writeln('Alunos que não cursaram:'),
+    imprimirLista(N),
+    writeln('').
+
+checaDesempDisc([A|T],D,Ac,Ab,N) :-
+pegaDesempAluno(A,D,R), checaDesempAluno(A,T,R,D,Ac,Ab,N).
+
+checaDesempAluno(A,T,R,D,Ac,Ab,N) :-
+R =:= -1, nth0(1,A,Nome), append(N,[Nome],N2), checaDesempDisc(T,D,Ac,Ab,N2);
+R >= 7, nth0(1,A,Nome), append(Ac,[Nome],Ac2), checaDesempDisc(T,D,Ac2,Ab,N);
+nth0(1,A,Nome), append(Ab,[Nome],Ab2), checaDesempDisc(T,D,Ac,Ab2,N).
+
+todoDesemp(_,[]) :- write('').
+
+todoDesemp(Alunos,[D|T]) :-
+checaDesempDisc(Alunos,D,[],[],[]), todoDesemp(Alunos,T).
 
 main :-
-    /*varrerDiretorio(["aluno1.csv","aluno2.csv","aluno3.csv"],[],X),*/
+    /*varrerDiretorio(["aluno1.csv","aluno2.csv","aluno3.csv"],[],X),
+    todoDesemp(X,['ESTRUTURA DE DADOS','TEORIA DOS GRAFOS']).*/
     /*testaRepetenteMatAtual(X,'TEORIA DOS GRAFOS')*/
     /*testaIntervalo(X,2,9).*/
     /*alunosComNRep(X,3).*/
