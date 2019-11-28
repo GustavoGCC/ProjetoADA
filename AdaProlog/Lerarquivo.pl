@@ -68,5 +68,5 @@ testaRepetenteMatAtual([A1|T],Disc) :-
     testaRepetenteMatAtual(T,Disc).
 
 main :-
-    /*varrerDiretorio(["aluno1.csv","aluno2.csv"],[],X),
-    testaRepetenteMatAtual(X,'TEORIA DOS GRAFOS').*/
+    varrerDiretorio(["aluno1.csv","aluno2.csv"],[],X),
+    testaIntervalo(X,2,9).
