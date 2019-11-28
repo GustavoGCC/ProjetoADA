@@ -1,5 +1,5 @@
 :- use_module(library(csv)).
-
+:- initialization (main).
 
 lerCsv(Arquivo, File) :- 
 csv_read_file(Arquivo, File).
@@ -42,3 +42,25 @@ rows_to_lists(Rows, Lists):- maplist(row_to_list, Rows, Lists).
 
 row_to_list(Row, List):-
  Row =.. [row|List].
+
+indexOf(V, [H|T], A, I):-
+    V = H, A = I, !;
+    ANew is A + 1,
+    indexOf(V, T, ANew, I).
+
+indexOf(Value, List, Index):-
+    indexOf(Value, List, 0, Index).
+
+indexOfWithoutFailure(Value, List, Index):-
+    indexOf(Value, List, 0, Index);
+    Index = -1.
+
+testaIntervalo([],_,_) :- writeln("").
+
+testaIntervalo([A1|T],Ini,Fim) :-
+    nth0(4,A1,C),C >= Ini,C =< Fim,nth0(1,A1,Nome),writeln(Nome),testaIntervalo(T,Ini,Fim);
+    testaIntervalo(T,Ini,Fim).
+
+main :-
+    varrerDiretorio(["aluno1.csv","aluno2.csv"],[],X),
+    testaIntervalo(X,2,9).
