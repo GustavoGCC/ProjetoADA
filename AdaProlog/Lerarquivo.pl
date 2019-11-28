@@ -67,6 +67,34 @@ testaRepetenteMatAtual([A1|T],Disc) :-
     member(Disc,A1), nth0(1,A1,Nome),writeln(Nome), testaRepetenteMatAtual(T,Disc);
     testaRepetenteMatAtual(T,Disc).
 
+count([],_,0).
+count([X|T],X,Y):- count(T,X,Z), Y is 1+Z.
+count([X1|T],X,Z):- X1\=X,count(T,X,Z).
+
+countall(List,X,C) :-
+    member(X,List),
+    count(List,X,C);
+    C is 0.
+
+contaRepetenciasAluno(Al,Ac,I,Contados,R) :-
+length(Al,L), I >= L, R is Ac;
+nth0(I,Al,Disc),member(Disc,Contados),I2 is I + 3,contaRepetenciasAluno(Al,Ac,I2,Contados,R);
+nth0(I,Al,Disc),I2 is I + 3, countall(Al,Disc,Repet), Repet2 is Repet - 1, Ac2 is Ac + Repet2, 
+append(Contados,[Disc],Contados2), contaRepetenciasAluno(Al,Ac2,I2,Contados2,R).
+
+alunosComNRep([],_) :- writeln("").
+
+alunosComNRep([A|T],N) :-
+contaRepetenciasAluno(A,0,7,[],R),nth0(1,A,Nome),compara(R,N,T,Nome).
+
+compara(R,N,T,Nome) :-
+R >= N, writeln(Nome),alunosComNRep(T,N);
+alunosComNRep(T,N).
+
+
 main :-
-    varrerDiretorio(["aluno1.csv","aluno2.csv"],[],X),
-    testaIntervalo(X,2,9).
+    varrerDiretorio(["aluno1.csv","aluno2.csv","aluno3.csv"],[],X),
+    /*testaRepetenteMatAtual(X,'TEORIA DOS GRAFOS')*/
+    /*testaIntervalo(X,2,9).*/
+    /*alunosComNRep(X,3).*/
+
