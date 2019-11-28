@@ -93,7 +93,7 @@ alunosComNRep(T,N).
 
 
 main :-
-    varrerDiretorio(["aluno1.csv","aluno2.csv","aluno3.csv"],[],X),
+    /*varrerDiretorio(["aluno1.csv","aluno2.csv","aluno3.csv"],[],X),*/
     /*testaRepetenteMatAtual(X,'TEORIA DOS GRAFOS')*/
     /*testaIntervalo(X,2,9).*/
     /*alunosComNRep(X,3).*/
