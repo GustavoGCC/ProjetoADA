@@ -61,6 +61,12 @@ testaIntervalo([A1|T],Ini,Fim) :-
     nth0(4,A1,C),C >= Ini,C =< Fim,nth0(1,A1,Nome),writeln(Nome),testaIntervalo(T,Ini,Fim);
     testaIntervalo(T,Ini,Fim).
 
+testaRepetenteMatAtual([],_) :- writeln("").
+
+testaRepetenteMatAtual([A1|T],Disc) :-
+    member(Disc,A1), nth0(1,A1,Nome),writeln(Nome), testaRepetenteMatAtual(T,Disc);
+    testaRepetenteMatAtual(T,Disc).
+
 main :-
-    varrerDiretorio(["aluno1.csv","aluno2.csv"],[],X),
-    testaIntervalo(X,2,9).
+    /*varrerDiretorio(["aluno1.csv","aluno2.csv"],[],X),
+    testaRepetenteMatAtual(X,'TEORIA DOS GRAFOS').*/
