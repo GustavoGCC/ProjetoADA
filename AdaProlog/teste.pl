@@ -1,6 +1,4 @@
 :- initialization (main).
-/*O 'fato' disciplina*/
-disciplina(plp,[(2018.1,[6.0,7.5,8.0]),(2018.2,[6.6,7.4,8.0]),(2019.1,[5.0,7.0,9.0])],[(2018.1,[40,30,30]),(2018.2,[60,5,35]),(2019.1,[40,10,50])]).
 
 /*Métodos para calcular taxas gerais*/
 calculaTaxas([(_,[A,R,F|_])|[]],SomaAprov,SomaReprov,SomaFalta,Quant,Retorno) :-
