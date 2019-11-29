@@ -87,14 +87,26 @@ mediasGerais(Disc,[P,S,T]), P > S, P =:= T, writeln("O primeiro estágio e o ter
 mediasGerais(Disc,[P,S,T]), T =:= S, T > P, writeln("O segundo estágio e o terceiro estágio são mais difíceis."),faltaCritica(Disc);
 writeln("Os estágios possuem a mesma dificuldade"),faltaCritica(Disc).
 
+transformaArquivo(X,R) :-
+    pegaNotas(X,[],N),pegaTaxas(X,[],S),R = [".",["."],N,S].
 
-main :-
-    /*X = ['plp',['p2','lp2'],[(2018.1,[6.0,7.5,8.0]),(2018.2,[6.6,7.4,8.0]),(2019.1,[5.0,7.0,9.0])],[(2018.1,[40,30,30]),(2018.2,[60,5,35]),(2019.1,[40,10,50])]],
+pegaNotas([],Ac,Ac).
+pegaNotas([P|T],Ac,N) :-
+    nth0(0,P,Sem),nth0(1,P,E1),nth0(2,P,E2),nth0(3,P,E3),append(Ac,[(Sem,[E1,E2,E3])],Ac2),pegaNotas(T,Ac2,N).
+
+pegaTaxas([],Ac,Ac).
+pegaTaxas([P|T],Ac,N) :-
+    nth0(0,P,Sem),nth0(4,P,E1),nth0(5,P,E2),nth0(6,P,E3),append(Ac,[(Sem,[E1,E2,E3])],Ac2),pegaTaxas(T,Ac2,N).
+
+main :-    
+    Y = [[2018.1,6.0,7.0,8.0,50,40,10],[2018.2,6.0,7.0,8.0,50,40,10],[2019.2,6.0,7.0,8.0,50,30,20]],
+    transformaArquivo(Y,X),
     writeln('Exibe Taxas'),
     exibeTaxas(X),
     writeln('Exibe Medias'),
     exibeMedias(X),
     writeln('pegaInformacoes'),
+    /*ESSE NUMERO TEM Q SER MENOR QUE O LENGTH(X)*/
     pegaInformacoes(X,2),
-    pontoscriticos')
-    pontosCriticos(X).*/
+    writeln('pontoscriticos'),
+    pontosCriticos(X).
