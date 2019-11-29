@@ -10,12 +10,9 @@ subtract(Files, ['.', '..'], Files2),
 varrerDiretorio(Files2, [], Hitoricos).
 
 
-varrerDiretorio([X|[]], Lists, Res):- lerArquivo(X, Lista2),
-append([Lista2], Lists, Res).
-varrerDiretorio([X|L1], Lists, Res):-
-varrerDiretorio(L1, Lists, Res2),
+varrerDiretorio(X, Lists, Res):- 
 lerArquivo(X, Lista2),
-append(Res2, [Lista2] , Res).
+append([Lista2], Lists, Res).
 
 
 testaFuncao(Lista, Variavel , L):-
@@ -23,15 +20,43 @@ append(Lista, Variavel, L).
 
 
 lerArquivo(Arquivo, Retorno):-
-atom_concat("./historicosDosAlunos/",Arquivo, Res),
+atom_concat("./historicoDisciplina/",Arquivo, Res),
 csv_read_file(Res, Rows, []),
 rows_to_lists(Rows, Lista),
-concatenarDadosDeAluno(Lista, [], Retorno).
+concatenarDadosDeDisciplina(Lista, [], [], Retorno).
 
-concatenarDadosDeAluno([A|[]], Anterior, Retorno):- append(Anterior, A, Retorno).
-concatenarDadosDeAluno([A|L], Anterior, Retorno):-
-append(Anterior, A, Retorno2),
-concatenarDadosDeAluno(L, Retorno2, Retorno).
+
+concatenarDadosDeDisciplina([D|L], tupulasDeNotas, tupulasDeAprov, Retorno):-
+Valor is 1,
+listaDeNotas(L, tupulasDeNotas, tupulasDeAprov, [], D, Valor, Retorno).
+
+
+listaDeNotas([D|L], tupulasDeNotas, tupulasDeAprov, listaDeValores, Periodo, 3, Retorno):-
+append(listaDeValores, D, listaDeValores2),
+Tupula is (Periodo, listaDeValores2),
+append(tupulasDeNotas, Tupula, tupulasDeNotas2),
+Valor is 4,
+listaDeAprov(L, tupulasDeNotas2, tupulasDeAprov, [],Periodo, Valor, Retorno).
+listaDeNotas([D|L], tupulasDeNotas, tupulasDeAprov, listaDeValores,Periodo, Valor, Retorno):-
+append(listaDeValores, D, listaDeValores2),
+Valor2 is Valor+1,
+listaDeNotas(L, tupulasDeNotas2, tupulasDeAprov, listaDeValores,Periodo, Valor2, Retorno).
+
+
+listaDeAprov([D|[]], tupulasDeNotas, tupulasDeAprov, listaDeValores,Periodo, 7, Retorno):-
+append(listaDeValores, D, listaDeValores2),
+Tupula is (Periodo, listaDeValores2),   
+append(tupulasDeAprov, Tupula, tupulasDeAprov2),
+append(tupulasDeNotas, tupulasDeAprov2, Retorno).
+listaDeAprov([D|L], tupulasDeNotas, tupulasDeAprov, listaDeValores,Periodo, 7, Retorno):-
+append(listaDeValores, D, listaDeValores2),
+Tupula is (Periodo, listaDeValores2),
+append(tupulasDeAprov, Tupula, tupulasDeAprov2),
+concatenarDadosDeDisciplina(L, tupulasDeNotas, tupulasDeAprov2, Retorno).
+listaDeAprov([D|L], tupulasDeNotas, tupulasDeAprov, listaDeValores,Periodo, Valor, Retorno):-
+append(listaDeValores, D, listaDeValores2),
+Valor2 is Valor+1,
+listaDeNotas(L, tupulasDeNotas, tupulasDeAprov2, listaDeValores2,Periodo, Valor2, Retorno).
 
 
 lerCsvRowList(Lists):-
@@ -42,6 +67,7 @@ rows_to_lists(Rows, Lists):- maplist(row_to_list, Rows, Lists).
 
 row_to_list(Row, List):-
  Row =.. [row|List].
+
 
 indexOf(V, [H|T], A, I):-
     V = H, A = I, !;
@@ -54,6 +80,7 @@ indexOf(Value, List, Index):-
 indexOfWithoutFailure(Value, List, Index):-
     indexOf(Value, List, 0, Index);
     Index = -1.
+
 
 testaIntervalo([],_,_) :- writeln("").
 
@@ -116,7 +143,7 @@ checaDesempDisc([],D,Ac,Ab,N) :-
     imprimirLista(Ac),
     writeln('Alunos que cursaram com media abaixo de 7:'),
     imprimirLista(Ab),
-    writeln('Alunos que não cursaram:'),
+    writeln('Alunos que n�o cursaram:'),
     imprimirLista(N),
     writeln('').
 
@@ -133,10 +160,24 @@ todoDesemp(_,[]) :- write('').
 todoDesemp(Alunos,[D|T]) :-
 checaDesempDisc(Alunos,D,[],[],[]), todoDesemp(Alunos,T).
 
+
 main :-
-    varrerDiretorio(["aluno1.csv","aluno2.csv","aluno3.csv"],[],X).
+    varrerDiretorio("disciplina.csv",[],X),
+    writeln(X).
     /*todoDesemp(X,['ESTRUTURA DE DADOS','TEORIA DOS GRAFOS']),
     testaRepetenteMatAtual(X,'TEORIA DOS GRAFOS'),
     testaIntervalo(X,2,9),
     alunosComNRep(X,3).*/
 
+
+
+	/*FORMATO PARA DISCIPLINA*/
+	/*X = ['plp',['p2','lp2'],[(2018.1,[6.0,7.5,8.0]),(2018.2,[6.6,7.4,8.0]),(2019.1,[5.0,7.0,9.0])],[(2018.1,[40,30,30]),(2018.2,[60,5,35]),(2019.1,[40,10,50])]],
+    writeln('Exibe Taxas'),
+    exibeTaxas(X),
+    writeln('Exibe Medias'),
+    exibeMedias(X),
+    writeln('pegaInformacoes'),
+    pegaInformacoes(X,2),
+    pontoscriticos')
+    pontosCriticos(X).*/
