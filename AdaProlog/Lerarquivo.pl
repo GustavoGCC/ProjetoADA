@@ -134,9 +134,9 @@ todoDesemp(Alunos,[D|T]) :-
 checaDesempDisc(Alunos,D,[],[],[]), todoDesemp(Alunos,T).
 
 main :-
-    /*varrerDiretorio(["aluno1.csv","aluno2.csv","aluno3.csv"],[],X),
-    todoDesemp(X,['ESTRUTURA DE DADOS','TEORIA DOS GRAFOS']).*/
-    /*testaRepetenteMatAtual(X,'TEORIA DOS GRAFOS')*/
-    /*testaIntervalo(X,2,9).*/
-    /*alunosComNRep(X,3).*/
+    varrerDiretorio(["aluno1.csv","aluno2.csv","aluno3.csv"],[],X).
+    /*todoDesemp(X,['ESTRUTURA DE DADOS','TEORIA DOS GRAFOS']),
+    testaRepetenteMatAtual(X,'TEORIA DOS GRAFOS'),
+    testaIntervalo(X,2,9),
+    alunosComNRep(X,3).*/
 
