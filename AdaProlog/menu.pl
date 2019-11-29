@@ -95,7 +95,7 @@ tab(32), write("1.exibir funcoes     2.voltar"),nl, nl,
 tab(50), write("opcao > "), nl, 
 read(Opcao),
 (Opcao == 1 -> exibirFuncoesAlunos(Historicos, DisciplinaAtual, DadosDisciplina);
-Opcao == 2 -> menu(Historicos, DisciplinaAtual, DadosDisciplina, DadosDisciplina);
+Opcao == 2 -> menu(Historicos, DisciplinaAtual, DadosDisciplina);
 alunos(Historicos, DisciplinaAtual, DadosDisciplina)).
 
 exibirFuncoesAlunos(Historicos, DisciplinaAtual, DadosDisciplina):-
@@ -105,36 +105,34 @@ tab(20), write("1.agrupar alunos de acordo com o CRA passado como parametro\n"),
 tab(24), write("2.exibir o desempenho dos alunos nos pre requisitos\n"),
 tab(21), write("3.exibir o desempenho dos alunos nas disciplinas desejaveis\n"),
 tab(19), write("4.exibir alunos que possuem ao menos n reprovacoes no curriculo\n"),
-tab(28), write("5.exibir alunos que reprovaram a disciplina\n"),
-tab(43), write("6.voltar\n"), nl, nl,
+tab(43), write("5.voltar\n"), nl, nl,
 tab(44), write("opcao > "), nl, 
 read(Opcao),
 (Opcao == 1 -> write("Digite o inicio do intervalo > "), nl, read(N1), 
 	write("Digite o fim do intervalo > "), nl, read(N2), testaIntervalo(Historicos, N1, N2),
-	nl, write("aperte uma tecla para exibir funcionalidades novamente > "), nl, read(op),
+	nl, write("aperte uma tecla para exibir funcionalidades novamente > "), nl, read(Op),
 	exibirFuncoesAlunos(Historicos, DisciplinaAtual, DadosDisciplina);
 Opcao == 2 ->  tab(44), write("Digite os pre requisitos no formato [disc1, disc2..]"), nl, read(Desejaveis),
-	todoDesemp(Historicos, Desejaveis), nl, write("aperte uma tecla para exibir funcionalidades novamente > "), nl, read(op),
+	todoDesemp(Historicos, Desejaveis), nl, write("aperte uma tecla para exibir funcionalidades novamente > "), nl, read(Op),
 	exibirFuncoesAlunos(Historicos, DisciplinaAtual, DadosDisciplina);
 Opcao == 3 -> tab(44), write("Digite as disciplinas desejáveis no formato [disc1, disc2..]"), nl, read(Desejaveis),
-	todoDesemp(Historicos, Desejaveis), nl, write("aperte uma tecla para exibir funcionalidades novamente > "), nl, read(op),
+	todoDesemp(Historicos, Desejaveis), nl, write("aperte uma tecla para exibir funcionalidades novamente > "), nl, read(Op),
 	exibirFuncoesAlunos(Historicos, DisciplinaAtual, DadosDisciplina);
 Opcao == 4 -> tab(44), write("Digite a quantidade de reprovações > "),nl,
-	read(N), alunosComNRep(Historicos, N), exibirFuncoesAlunos(Historicos, DisciplinaAtual, DadosDisciplina);
-Opcao == 5 -> testaRepetenteMatAtual(Historicos, DisciplinaAtual);
-Opcao == 6 -> alunos(Historicos, DisciplinaAtual, DadosDisciplina);
+	read(N), alunosComNRep(Historicos, N), nl, write("aperte uma tecla para exibir funcionalidades novamente > "), nl, read(Op),
+	exibirFuncoesAlunos(Historicos, DisciplinaAtual, DadosDisciplina);
+Opcao == 5 -> alunos(Historicos, DisciplinaAtual, DadosDisciplina);
 exibirFuncoesAlunos(Historicos, DisciplinaAtual, DadosDisciplina)).
 
 
 disciplina(Historicos, DisciplinaAtual, DadosDisciplina):-
 tab(8000),nl,
 tab(48), write("voce deseja\n\n"),
-tab(32), write("1.importar dados   2.exibir funcoes     3.voltar"),nl, nl,
+tab(32), write("1.exibir funcoes    2.voltar"),nl, nl,
 tab(50), write("opcao > "), nl, 
 read(Opcao),
-(Opcao == 1 -> write("importar dados");
-Opcao == 2 -> exibirFuncoesDisciplina(Historicos, DisciplinaAtual, DadosDisciplina);
-Opcao == 3 -> menu(Historicos, DisciplinaAtual, DadosDisciplina);
+(Opcao == 1 -> exibirFuncoesDisciplina(Historicos, DisciplinaAtual, DadosDisciplina);
+Opcao == 2 -> menu(Historicos, DisciplinaAtual, DadosDisciplina);
 disciplina(Historicos, DisciplinaAtual, DadosDisciplina)).
 
 exibirFuncoesDisciplina(Historicos, DisciplinaAtual, DadosDisciplina):-
@@ -219,17 +217,20 @@ indexOfWithoutFailure(Value, List, Index):-
     indexOf(Value, List, 0, Index);
     Index = -1.
 
-testaIntervalo([],_,_) :- writeln("").
-
-testaIntervalo([A1|T],Ini,Fim) :-
-    nth0(4,A1,C),C >= Ini,C =< Fim,nth0(1,A1,Nome),writeln(Nome),testaIntervalo(T,Ini,Fim);
-    testaIntervalo(T,Ini,Fim).
-
 testaRepetenteMatAtual([],_) :- writeln("").
 
 testaRepetenteMatAtual([A1|T],Disc) :-
     member(Disc,A1), nth0(1,A1,Nome),writeln(Nome), testaRepetenteMatAtual(T,Disc);
     testaRepetenteMatAtual(T,Disc).
+
+testaIntervalo([],_,_) :- writeln("").
+
+testaIntervalo([A1|T],Ini,Fim) :-
+    nth0(4,A1,C),C >= Ini,
+    C =< Fim,
+    nth0(1,A1,Nome),writeln(Nome),testaIntervalo(T,Ini,Fim);
+    testaIntervalo(T,Ini,Fim).
+
 
 count([],_,0).
 count([X|T],X,Y):- count(T,X,Z), Y is 1+Z.
